@@ -1,0 +1,543 @@
+/* Nguyên tắc khi làm web: 
+    1. Từ ngoài vào trong
+    2. Từ trên xuống dưới
+    3. Tổng quan và chi tiết 
+   
+   Các bước để xác định nên làm gì đầu tiên: 
+    1. Vị trí 
+    2. Kích thước (width, height) 
+    3. Màu sắc 
+    4. Kiểu dáng của trang web trong như thế nào (bố cục)
+    */
+
+/*
+    =====
+    COMMON STYLES
+    =====
+*/
+
+.white-text {
+  color: #fff !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.col-third {
+  width: 33.33333%;
+}
+
+.mt-8px {
+  margin-top: 8px !important;
+}
+
+.mt-16px {
+  margin-top: 16px !important;
+}
+
+.col-full {
+  width: 100% !important;
+}
+
+.col-half {
+  width: 50%;
+}
+
+/* ::after dùng để thay thế cho cách dùng clearfix or overflow: hidden */
+.row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.col {
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Reset CSS */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Lato", sans-serif;
+  scroll-behavior: smooth;
+}
+
+#main {
+}
+
+#header {
+  background-color: black;
+  height: 46px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+#nav {
+  display: inline-block;
+}
+
+#nav li {
+  display: inline-block;
+  list-style-type: none;
+  position: relative;
+}
+
+#nav > li > a {
+  text-transform: uppercase;
+}
+
+#nav li a {
+  text-decoration: none;
+  color: white;
+  line-height: 46px;
+  padding: 0 24px;
+  display: block;
+}
+
+#nav > li:hover > a {
+  color: #000;
+  background-color: #ccc;
+}
+
+#nav li:hover .subnav {
+  display: block;
+}
+
+#nav .subnav {
+  display: none;
+  position: absolute;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+#nav .subnav a {
+  color: black;
+  background-color: white;
+  line-height: 38px;
+  min-width: 160px;
+  padding: 0 16px;
+  display: block;
+}
+
+#nav .subnav li:hover a {
+  color: #000;
+  background-color: #ccc;
+}
+
+#header .menu-mobile-icon {
+  position: absolute;
+  float: right;
+  line-height: 46px;
+  padding: 0 24px;
+  top: 0;
+  right: 0;
+  display: none; /* Hide menu-mobile in PC, Tablet */
+}
+
+#header .search-icon {
+  float: right;
+  line-height: 46px;
+  padding: 0 24px;
+}
+
+#header .menu-mobile-icon > i,
+#header .search-icon a {
+  text-decoration: none;
+  color: #fff;
+}
+
+#header div:hover.search-icon {
+  background-color: #f44336;
+  cursor: pointer;
+}
+
+#header div:hover.menu-mobile-icon {
+  background-color: #ccc;
+  color: #000;
+  cursor: pointer;
+}
+
+/* Arrow down next to 'More' */
+.fa-chevron-down {
+  font-size: 12px;
+}
+
+#slider {
+  position: relative;
+  margin-top: 46px;
+  padding-top: 50%; /* for height img = 1/2 width browser whether stretched */
+  background: url("./img/Slider/slider1.jpg") top center / cover no-repeat;
+}
+
+#slider .text-content {
+  color: #fff;
+  position: absolute;
+  bottom: 48px;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
+#slider .text-heading {
+  font-weight: 400;
+}
+
+#slider .text-description {
+  margin-top: 25px;
+  font-weight: 600;
+  text-shadow: 0 0 5px #333;
+}
+#content {
+}
+
+#content .content-section {
+  padding: 64px 0 112px; /* lý do chỗ 112px là vì để css cái padding-bottom chung cho cả toàn bộ phần content của trang web (lúc đầu padding: 64px 0 ==> Lúc sau: padding: 64px 0 (64 + [48 cũ] = 112px ) */
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  max-width: 100%; /* Để chiếm 100% màn hình cho dù kích thước có bị nhỏ hơn cái width "cứng": 800px */
+  padding-left: 16px;
+  padding-right: 16px; /*  */
+}
+
+#content .heading {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+#content .sub-heading {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 15px;
+  font-style: italic;
+  opacity: 0.5;
+}
+
+#content .about-content {
+  margin: 15px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+#content .members-list {
+  margin-top: 48px;
+}
+
+#content .member-img {
+  width: 154px;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+/* Tour section */
+.tour-dates-dad {
+  background-color: black;
+}
+
+.tour-dates-dad ul {
+  list-style: none;
+}
+
+.book-tickets {
+  background-color: white;
+  color: #000;
+  font-size: 15px;
+  margin-top: 40px;
+}
+
+.book-tickets li {
+  font-size: 15px;
+  padding: 11px 16px;
+  border-bottom: 1px solid #ddd;
+  color: #757575;
+}
+
+.book-tickets .sold-out {
+  background-color: #f44336;
+  color: white;
+  padding: 3px 4px;
+  margin-left: 16px;
+}
+
+.book-tickets .quantity {
+  float: right;
+  width: 24px; /*làm tròn width & height */
+  height: 24px;
+  border-radius: 50%; /* border-radius: 50%, tức là bo tròn 4 góc lại đúng 50% ==> như vậy là ra hình tròn luôn (mở DevTools giảm or tăng để thử) */
+  background-color: #000;
+  color: white;
+  text-align: center;
+  line-height: 24px; /* căn giữa theo chiều trên xuống thì cho bằng chiều cao chính nó (height: 24px) */
+  margin-top: -2px; /* muốn set margin là số âm thì phải có float mới được!! */
+  margin-right: 16px;
+}
+
+/* Place section */
+.places-list {
+  padding-top: 16px;
+}
+
+.place-img {
+  width: 100%;
+  display: block; /* chỗ chưa hiểu!! (tác dụng: làm mất khoảng đen giữa hình ảnh và phần place-body) */
+  height: 149px; /* Để set 'cứng' cho cái height của img ko bị thay đổi khi đổi ảnh khác  */
+  transition: transform 0.5s;
+}
+
+.place-img:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.place-body {
+  font-size: 15px;
+  background-color: #fff;
+  padding: 15px;
+}
+
+.place-heading {
+  font-size: 15px;
+}
+
+.place-date {
+  margin: 15px 0;
+  color: #757575;
+}
+
+.place-description {
+  margin: 15px 0;
+  line-height: 1.4;
+}
+
+.buy-tickets-btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  padding: 11px 16px;
+  display: inline-block; /* chỗ chưa hiểu!! (tác dụng: làm cho nút Buy Tickets ko còn che mất phần place-description nữa) */
+  font-family: "Lato", sans-serif;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.buy-tickets-btn:hover {
+  background-color: #ccc;
+  color: #000;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-container {
+  background-color: #fff;
+  width: 900px;
+  min-height: 200px;
+  position: relative;
+  animation: modalAnimation ease 0.5s;
+}
+
+/* max-width: 1000px là lấy ngẫu nhiên theo chiều ngang của trình duyệt, nếu
+    chiều ngang của trình duyệt <= 1000px thì sẽ bị ăn thuộc tính đó */
+@media (max-width: 1000px) {
+  .modal-container {
+    width: calc(
+      100% - 64px
+    ); /* 100% (toàn phần c.ngang của browser - 64px(tức 2 bên, mỗi bên cách 32px) */
+  }
+}
+
+.modal-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 24px;
+  color: #fff;
+  padding: 12px;
+  opacity: 0.9;
+}
+
+.modal-close:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.modal-heading-icon {
+  margin: 0 16px 4px 0;
+}
+
+.modal-heading {
+  background-color: #009688;
+  height: 130px;
+  display: flex; /* khi cho display: flex vào thẻ Cha thì tất cả những thẻ con nằm trong thẻ Cha này đều trở thành "flex item" ==> khi đó ms có thể sd những thuộc tính như: align-items(căn theo chiều cao của thẻ Cha) và justify-content(căn theo chiều ngang của thẻ Cha) cho những thẻ con đó*/
+  align-items: center; /* căn theo giữa chiều cao */
+  justify-content: center; /* căn theo giữa chiều ngang */
+  font-size: 30px;
+  color: #fff;
+  letter-spacing: 5px;
+}
+
+.modal-body {
+  font-size: 15px;
+  padding: 16px;
+}
+
+.modal-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.modal-input {
+  display: block;
+  width: 100%;
+  padding: 9px 8px;
+  margin-bottom: 25px;
+  font-size: 15px;
+  border: 1px #ccc solid;
+}
+
+#modal-pay-btn {
+  font-size: 15px;
+  border: none;
+  width: 100%;
+  background-color: #009688;
+  padding: 19px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#modal-pay-btn:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.modal-footer {
+  padding: 16px;
+}
+
+.modal-help {
+  text-align: right;
+}
+
+.modal-help > a {
+  color: #2196f3;
+}
+
+@keyframes modalAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-130px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contact form */
+.content-Contact {
+  padding-top: 32px;
+}
+
+.contact-info {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.contact-info i {
+  width: 30px;
+}
+
+.contact-info a {
+  color: #4040f2;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  font-size: 15px;
+}
+
+.contact-form .form-input {
+  padding: 11px;
+  border: 1px solid #ccc;
+  outline-color: #2196f3;
+  width: 100%;
+}
+
+.send-btn {
+  border: 0 solid #000;
+  background-color: #000;
+  color: #fff;
+  padding: 11px 17px;
+  float: right;
+}
+
+.send-btn:hover {
+  background-color: #ccc;
+  color: #000;
+  cursor: pointer;
+}
+
+.map img {
+  width: 100%;
+}
+
+/* Footer begin */
+#footer {
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.social-list a,
+.copyright a {
+  color: #757575;
+}
+
+#footer .social-list > a:hover,
+.copyright a:hover {
+  opacity: 0.6;
+}
+
+.social-list i {
+  font-size: 24px;
+}
+
+.copyright {
+  margin-top: 15px;
+  color: #757575;
+}
